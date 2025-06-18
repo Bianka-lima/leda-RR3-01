@@ -40,27 +40,62 @@ public class Vetor {
 
 	// Insere um objeto no vetor
 	public void inserir(Object o) {
-
+		if (indice >= tamanho)
+			throw new IllegalArgumentException("ARRAY CHEIO");
+		arrayInterno[indice] = o;
+		indice++;
 	}
 
 	// Remove um objeto do vetor
-	public Object remover() {
-		return null;
+	public void remover(Object o) {
+		int ind = -1;
+		int i= 0;
+		while (i < tamanho && ind == -1) {
+			if (arrayInterno[i] != null && arrayInterno[i] == o)
+				ind = i;
+			i++;
+		}
+		if (ind == -1)
+			throw new IllegalArgumentException("OBJECT INVÁLIDO");
+		for (int j = ind; j < indice-1; j++) {
+			Object temp = arrayInterno[j];
+			arrayInterno[j] = arrayInterno[j+1];
+			arrayInterno[j+1] = temp;
+		}
+		arrayInterno[indice] = null;
+		indice--;
 	}
 
 	// Procura um elemento no vetor
 	public Object procurar(Object o) {
-		return null;
+		Object obj = null;
+		int i = 0;
+		while (obj ==  null && i < tamanho) {
+			if (arrayInterno[i] == o)
+				obj = o;
+			i++;
+		}
+		return obj;
 	}
 
 	// Diz se o vetor está vazio
 	public boolean isVazio() {
-		return false;
+		boolean isNull = true;
+		int i = 0;
+		while (isNull == true && i < tamanho) {
+			if (arrayInterno[i] != null)
+				isNull = false;
+			i++;
+		}
+		return isNull;
 	}
 
 	// Diz se o vetor está cheio
 	public boolean isCheio() {
-		return false;
+		boolean taChei = false;
+		if (indice == tamanho)
+			taChei = true;
+		return taChei;
 	}
 
 }
